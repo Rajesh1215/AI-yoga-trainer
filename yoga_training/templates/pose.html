@@ -1,0 +1,204 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Yoga Trainer</title>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css"
+    />
+
+    <style>
+      #input-video {
+        visibility: hidden;
+      }
+    </style>
+    {% csrf_token %}
+  </head>
+
+  <body>
+    <div class="flex flex-wrap sm:flex-row pt-2 mb-12">
+      <div class="lg:w-1/2 w-full mb-6 lg:mb-0">
+        <h1
+          class="sm:text-3xl text-2xl font-medium title-font mx-10 mt-6 text-gray-900"
+        >
+          "Empower your day with strength!"
+        </h1>
+      </div>
+      <button
+        class="flex mx-10 mt-6 text-white bg-indigo-500 border-0 py-2 px-5 focus:outline-none hover:bg-indigo-600 rounded"
+      >
+        Start
+      </button>
+      <button
+        class="flex mx-10 mt-6 text-white bg-indigo-500 border-0 py-2 px-5 focus:outline-none hover:bg-indigo-600 rounded"
+      >
+        Reset
+      </button>
+      <div
+        class="flex mx-10 mt-6 text-white bg-yellow-500 border-0 py-2 px-5 focus:outline-none hover:bg-indigo-600 rounded"
+      >
+        Timer
+      </div>
+    </div>
+
+    <section class="text-gray-600 body-font">
+      <div class="container px-5 py-1 mx-auto">
+        <div class="flex flex-wrap -mx-4 -mb-10 text-center">
+          <div class="sm:w-1/2 mb-10 px-4">
+            <div class="rounded-lg h-100 overflow-hidden">
+              <div id="video-container">
+                <canvas id="output-canvas" width="640" height="480"></canvas>
+                <video
+                  id="input-video"
+                  width="640"
+                  height="480"
+                  autoplay
+                  playsinline
+                ></video>
+              </div>
+              <!-- <video class="object-cover object-center h-full w-full" id="webcam" width="640" height="480" autoplay muted>
+                     <source src="your_video_file.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video> -->
+            </div>
+          </div>
+          <div class="sm:w-1/2 mb-10 px-4">
+            <div class="rounded-lg h-100 overflow-hidden">
+              <img
+                alt="content"
+                class="object-cover object-center h-full w-full"
+                src="{% static image %}"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <div class="py-6 mb-12">
+      <p class="leading-relaxed text-base sm:pl-10 pl-0">
+        In the serene space of a yoga practice, breath intertwines with
+        movement, creating a dance of mindfulness and physical grace. Each pose
+        becomes a canvas for self-discovery, weaving strength and flexibility
+        into a harmonious tapestry. Amidst the tranquility, the mind finds
+        stillness, and the body discovers its innate wisdom. Yoga is more than
+        exercise; it's a sacred journey inward, inviting balance, clarity, and a
+        profound connection to the present moment. It transcends the mat,
+        fostering a lifestyle that embraces well-being, resilience, and the
+        timeless art of self-love.
+      </p>
+    </div>
+    <video
+      id="receivedFrames"
+      width="640"
+      height="480"
+      style="display: none"
+      controls
+    ></video>
+  </body>
+  <script
+    src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils@0.1/camera_utils.js"
+    crossorigin="anonymous"
+  ></script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/@mediapipe/control_utils@0.1/control_utils.js"
+    crossorigin="anonymous"
+  ></script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils@0.2/drawing_utils.js"
+    crossorigin="anonymous"
+  ></script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/@mediapipe/pose@0.2/pose.js"
+    crossorigin="anonymous"
+  ></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+  <script>
+    const videoElement = document.getElementById("input-video");
+    const canvasElement = document.getElementById("output-canvas");
+    const canvasCtx = canvasElement.getContext("2d");
+
+    const pose = new Pose({
+      locateFile: (file) =>
+        `https://cdn.jsdelivr.net/npm/@mediapipe/pose@0.2/${file}`,
+    });
+
+    const camera = new Camera(videoElement, {
+      onFrame: async () => {
+        await pose.send({ image: videoElement });
+      },
+      width: 640,
+      height: 480,
+    });
+    camera.start();
+
+    pose.onResults((results) => {
+      // Log coordinates of all 33 keypoints
+      // results.poseLandmarks.forEach((keypoint, index) => {
+      //   console.log("item: " + keypoint);
+      // });
+      const k = [0,12, 14, 16, 24, 26, 28, 11, 13, 15, 23, 25, 27];
+      const keycordinates = [];
+      k.forEach((keypoint, index) => {
+    keycordinates.push({
+        index:keypoint,
+        x: results.poseLandmarks[keypoint].x,
+        y: results.poseLandmarks[keypoint].y,
+    });
+});
+
+
+      canvasCtx.save();
+      canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
+      canvasCtx.drawImage(
+        results.image,
+        0,
+        0,
+        canvasElement.width,
+        canvasElement.height
+      );
+      drawConnectors(canvasCtx, results.poseLandmarks, POSE_CONNECTIONS, {
+        color: "#00FF00",
+      });
+      drawLandmarks(canvasCtx, results.poseLandmarks, {
+        color: "#FF0000",
+        fillColor: "#00FF00",
+        radius: 4,
+      });
+      canvasCtx.restore();
+      // console.log(keycordinates)
+      sendKeyCoordinatesToDjango(keycordinates);
+    });
+
+    async function sendKeyCoordinatesToDjango(coordinates) {
+  try {
+    const apiUrl = "{% url 'coordinates' %}";
+    const requestData = { key: "value" }; // Assuming some data to send
+    const csrfToken = document.getElementsByName("csrfmiddlewaretoken")[0].value;
+
+    const response = await axios.post(apiUrl, coordinates, {
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRFToken": csrfToken,
+      },
+    });
+
+    // Handle successful response
+    console.log("Response from server:", response.data);
+
+  } catch (error) {
+    // Handle errors
+    console.error("Error:", error);
+  }
+}
+
+  </script>
+  <!-- Include Axios directly from a CDN -->
+
+
+</html>
+tensorflowjs_converter --input_format=tf_saved_model --output_format=tfjs_graph_model --saved_model_tags=serve pose_classification_model.h5 /JSclaffication

@@ -1,0 +1,324 @@
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Yoga Trainer</title>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css"
+    />
+  </head>
+  <body>
+    <header class="text-gray-600 body-font">
+      <div
+        class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center"
+      >
+        <a
+          class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            class="w-10 h-10 text-white p-2 bg-indigo-500 rounded-full"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"
+            ></path>
+          </svg>
+          <span class="ml-3 text-xl">Yoga Trainer</span>
+        </a>
+<!--  -->
+      </div>
+    </header>
+    <section class="text-gray-600 body-font">
+      <div
+        class="container mx-auto flex px-1 py-3 md:flex-row flex-col items-center"
+      >
+        <div
+          class="lg:flex-grow md:w-1/2 lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left mb-16 md:mb-0 items-center text-center"
+        >
+          <h1
+            class="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900"
+          >
+          Harmony in breath, peace in pose
+          </h1>
+          <p class="mb-8 leading-relaxed">
+            In the serene realm of yoga, practitioners embark on a transformative journey
+             that transcends the physical and delves into the profound depths of mind and spirit.
+              Through deliberate breath and purposeful poses, a harmonious symphony unfolds, weaving
+               together strength, flexibility, and inner tranquility. In each moment of stillness,
+                the mat becomes a sacred space where the union of body and soul blossoms, fostering 
+                a sense of balance that resonates far beyond the studio walls. 
+          </p>
+          <div class="flex justify-center">
+            <button
+              class="inline-flex text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg"
+            >
+              Explore
+            </button>
+
+          </div>
+        </div>
+        <div class="lg:max-w-lg lg:w-full md:w-1/2 w-5/6">
+          <img
+            class="object-cover object-center rounded "
+            alt="hero"
+            src="{% static 'yoga.jpg' %}"
+          />
+        </div>
+      </div>
+    </section>
+    <h1 class="sm:text-3xl text-2xl font-medium title-font my-10 text-center text-gray-900">Select the pose you want to TRY</h1>
+
+
+
+    <section class="text-gray-600 body-font">
+      <div class="container px-1 py-2 mx-auto flex flex-wrap">
+        <div class="flex flex-wrap -m-4">
+          <div class="p-4 lg:w-1/2 md:w-full">
+            <div
+              class="flex border-2 rounded-lg border-gray-200 border-opacity-50 p-8 sm:flex-row flex-col"
+            >
+            <img
+            class="rounded mr-5"
+            alt="hero"
+            src="{% static 'tree.jpg' %}"
+          />
+              
+              <div class="flex-grow">
+                <h2 class="text-gray-900 text-lg title-font font-medium mb-3">
+                  Tree
+                </h2>
+                <p class="leading-relaxed text-base">
+                    The tree pose in yoga, known as "Vrikshasana," invites practitioners to stand tall and grounded,
+                     mirroring the strength and resilience of a tree. With one foot rooted to the earth and the other 
+                     gracefully lifted, it cultivates balance, concentration, and a sense of inner calm.
+                </p>
+                <a class="mt-3 text-indigo-500 inline-flex items-center"
+                href="{% url 'Pose' 1 %}"
+                  >Try it
+                  <svg
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    class="w-4 h-4 ml-2"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M5 12h14M12 5l7 7-7 7"></path>
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="p-4 lg:w-1/2 md:w-full">
+            <div
+              class="flex border-2 rounded-lg border-gray-200 border-opacity-50 p-8 sm:flex-row flex-col"
+            >
+            <img
+            class="mr-5 rounded"
+            alt="hero"
+            src="{% static 'cobra.jpg' %}"
+          />
+              <div class="flex-grow">
+                <h2 class="text-gray-900 text-lg title-font font-medium mb-3">
+                  Cobra
+                </h2>
+                <p class="leading-relaxed text-base">
+                    Cobra pose, or Bhujangasana, in yoga is a heart-opening posture that invites practitioners
+                     to gracefully arch their backs, lifting the chest toward the sky. As the spine curves,
+                      it not only enhances flexibility but also symbolizes the awakening of inner strength and
+                       resilience. 
+                </p>
+                <a class="mt-3 text-indigo-500 inline-flex items-center"
+                href="{% url 'Pose' 3 %}"
+                  >Try it
+                  <svg
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    class="w-4 h-4 ml-2"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M5 12h14M12 5l7 7-7 7"></path>
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="text-gray-600 body-font">
+      <div class="container px-1 py-2 mx-auto flex flex-wrap">
+        <div class="flex flex-wrap -m-4">
+          <div class="p-4 lg:w-1/2 md:w-full">
+            <div
+              class="flex border-2 rounded-lg border-gray-200 border-opacity-50 p-8 sm:flex-row flex-col"
+            >
+            <img
+            class="rounded mr-5"
+            alt="hero"
+            src="{% static 'shoulder_stand.jpg' %}"
+          />
+              <div class="flex-grow">
+                <h2 class="text-gray-900 text-lg title-font font-medium mb-3">
+                  Shoulder Stand
+                </h2>
+                <p class="leading-relaxed text-base">
+                    Shoulder stand, or Sarvangasana, is a yoga pose where practitioners lift their legs and torso,
+                     supporting the body weight on their shoulders. This inversion promotes improved blood circulation, 
+                     thyroid function, and a sense of calm. 
+                </p>
+                <a class="mt-3 text-indigo-500 inline-flex items-center"
+                href="{% url 'Pose' 4 %}"
+                  >Try it
+                  <svg
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    class="w-4 h-4 ml-2"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M5 12h14M12 5l7 7-7 7"></path>
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="p-4 lg:w-1/2 md:w-full">
+            <div
+              class="flex border-2 rounded-lg border-gray-200 border-opacity-50 p-8 sm:flex-row flex-col"
+            >
+            <img
+            class="rounded mr-5"
+            alt="hero"
+            src="{% static 'traingle.jpg' %}"
+          />
+              <div class="flex-grow">
+                <h2 class="text-gray-900 text-lg title-font font-medium mb-3">
+                  Traingle
+                </h2>
+                <p class="leading-relaxed text-base">
+                    Triangle pose, or Trikonasana, is a yoga posture that involves extending the legs wide, 
+                    reaching one arm down towards the shin while the other arm extends upward. This triangular
+                     shape promotes lengthening of the spine, stretching the legs, and opening the chest.
+                     
+                </p>
+                <a class="mt-3 text-indigo-500 inline-flex items-center"
+                href="{% url 'Pose' 6 %}"
+                  >Try it
+                  <svg
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    class="w-4 h-4 ml-2"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M5 12h14M12 5l7 7-7 7"></path>
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="text-gray-600 body-font">
+      <div class="container px-1 py-2 mx-auto flex flex-wrap">
+        <div class="flex flex-wrap -m-4">
+          <div class="p-4 lg:w-1/2 md:w-full">
+            <div
+              class="flex border-2 rounded-lg border-gray-200 border-opacity-50 p-8 sm:flex-row flex-col"
+            >
+            <img
+            class="rounded mr-5"
+            alt="hero"
+            src="{% static 'warrior.jpg' %}"
+          />
+              <div class="flex-grow">
+                <h2 class="text-gray-900 text-lg title-font font-medium mb-3">
+                  Warrior
+                </h2>
+                <p class="leading-relaxed text-base">
+                    Warrior pose, or Virabhadrasana, is a foundational yoga posture that symbolizes strength, courage, and focus.
+                     With feet grounded and arms extended, practitioners embody the graceful power of a warrior, fostering stability 
+                     and balance.
+                </p>
+                <a class="mt-3 text-indigo-500 inline-flex items-center"
+                href="{% url 'Pose' 5 %}"
+                  >Try it
+                  <svg
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    class="w-4 h-4 ml-2"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M5 12h14M12 5l7 7-7 7"></path>
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="p-4 lg:w-1/2 md:w-full">
+            <div
+              class="flex border-2 rounded-lg border-gray-200 border-opacity-50 p-8 sm:flex-row flex-col"
+            >
+            <img
+            class="rounded mr-5"
+            alt="hero"
+            src="{% static 'chair.jpg' %}"
+          />
+              <div class="flex-grow">
+                <h2 class="text-gray-900 text-lg title-font font-medium mb-3">
+                  Chair
+                </h2>
+                <p class="leading-relaxed text-base">
+                    Chair pose, or Utkatasana, in yoga involves sitting back as if into an imaginary chair,
+                     engaging the core and lowering the hips while extending the arms overhead. This dynamic
+                      posture strengthens the lower body, particularly the thighs and glutes, while cultivating
+                       balance and endurance. 
+                </p>
+                <a class="mt-3 text-indigo-500 inline-flex items-center"
+                href="{% url 'Pose' 2 %}"
+                  >Try it
+                  <svg
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    class="w-4 h-4 ml-2"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M5 12h14M12 5l7 7-7 7"></path>
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </body>
+</html>
